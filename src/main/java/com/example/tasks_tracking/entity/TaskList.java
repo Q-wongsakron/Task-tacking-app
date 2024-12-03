@@ -2,7 +2,6 @@ package com.example.tasks_tracking.entity;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +37,7 @@ public class TaskList {
     public TaskList() {
     }
 
-    public TaskList(Long id, String title, String description, LocalDateTime created, LocalDateTime updated, List<Task> tasks) {
+    public TaskList(Long id, String title, String description, List<Task> tasks, LocalDateTime created, LocalDateTime updated) {
         this.id = id;
         this.title = title;
         this.description = description;
