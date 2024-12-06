@@ -33,9 +33,12 @@ public class TaskListController {
 
     @PostMapping
     public TaskListDto createTaskList(@RequestBody TaskListDto taskListDto) {
+        // take a task list dto in the request body
         TaskList createdTaskList = taskListService.createTaskList(
+                // convert it into a task list and save to database with service
                 taskListMapper.fromDto(taskListDto)
         );
+        // final return convert back to a dto
         return taskListMapper.toDto(createdTaskList);
 
     }

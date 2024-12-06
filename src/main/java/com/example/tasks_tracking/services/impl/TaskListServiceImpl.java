@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskListServiceImpl implements TaskListService {
@@ -42,5 +43,10 @@ public class TaskListServiceImpl implements TaskListService {
                 now
 
         ));
+    }
+
+    @Override
+    public Optional<TaskList> getTaskList(Long id) {
+        return taskListRepository.findById(id);
     }
 }
