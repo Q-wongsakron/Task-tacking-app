@@ -61,6 +61,7 @@ public class TaskListServiceImpl implements TaskListService {
             throw new IllegalArgumentException("Attempting to change task list ID, this is not permitted");
         }
 
+        // check task list is exist
        TaskList existingTaskList = taskListRepository.findById(taskListId).orElseThrow(()-> new IllegalArgumentException("Task list not found!"));
 
         existingTaskList.setTitle(taskList.getTitle());
@@ -70,5 +71,11 @@ public class TaskListServiceImpl implements TaskListService {
         return  taskListRepository.save(existingTaskList);
 
 
+    }
+
+    @Override
+    public void deleteTaskList(Long taskListId) {
+        // not check task list is exist because spring jpa will handle non-existing entities
+        taskListRepository.deleteById(taskListId);
     }
 }
