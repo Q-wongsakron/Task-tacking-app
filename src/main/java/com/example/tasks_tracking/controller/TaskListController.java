@@ -48,6 +48,7 @@ public class TaskListController {
     @GetMapping(path = "/{task_list_id}")
     public Optional<TaskListDto> getTaskList(@PathVariable("task_list_id") Long taskListId){
         // .map convert that to an optional of task list dto
+        System.out.println(taskListService.getTaskList(taskListId).map(taskListMapper::toDto));
         return taskListService.getTaskList(taskListId).map(taskListMapper::toDto);
     }
 

@@ -9,9 +9,9 @@ public interface TaskListService {
     List<TaskList> listTaskLists();
     TaskList createTaskList(TaskList taskList);
     // if exits will return TaskList else return Optional null
-    Optional<TaskList> getTaskList(Long id);
+    Optional<TaskList> getTaskList(Long taskListId);
 
-    TaskList updateTaskList(Long id, TaskList taskList);
+    TaskList updateTaskList(Long taskListId, TaskList taskList);
 
     void deleteTaskList(Long taskListId);
 }
