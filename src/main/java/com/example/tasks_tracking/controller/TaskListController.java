@@ -2,12 +2,14 @@ package com.example.tasks_tracking.controller;
 
 
 import com.example.tasks_tracking.dto.TaskListDto;
+import com.example.tasks_tracking.entity.Task;
 import com.example.tasks_tracking.entity.TaskList;
 import com.example.tasks_tracking.mappers.TaskListMapper;
 import com.example.tasks_tracking.services.TaskListService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/task-lists")
@@ -41,5 +43,24 @@ public class TaskListController {
         // final return convert back to a dto
         return taskListMapper.toDto(createdTaskList);
 
+    }
+
+    @GetMapping(path = "/{task_list_id}")
+    public Optional<TaskListDto> getTaskList(@PathVariable("task_list_id") Long taskListId){
+        // .map convert that to an optional of task list dto
+        return taskListService.getTaskList(taskListId).map(taskListMapper::toDto);
+    }
+
+    @PutMapping(path = "/{task_list_id}")
+    public TaskListDto updateTaskList(
+            @PathVariable("task_list_id") Long taskListId,
+            @RequestBody TaskListDto taskListDto
+    ){
+        TaskList updatedTaskList = taskListService.updateTaskList(
+                taskListId,
+                taskListMapper.fromDto(taskListDto)
+        );
+
+        return  taskListMapper.toDto(updatedTaskList);
     }
 }

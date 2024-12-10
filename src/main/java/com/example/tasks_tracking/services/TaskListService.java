@@ -10,4 +10,6 @@ public interface TaskListService {
     TaskList createTaskList(TaskList taskList);
     // if exits will return TaskList else return Optional null
     Optional<TaskList> getTaskList(Long id);
+
+    TaskList updateTaskList(Long id, TaskList taskList);
 }
