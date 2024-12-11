@@ -1,12 +1,10 @@
 package com.example.tasks_tracking.controller;
 
 import com.example.tasks_tracking.dto.TaskDto;
+import com.example.tasks_tracking.entity.Task;
 import com.example.tasks_tracking.mappers.TaskMapper;
 import com.example.tasks_tracking.services.TaskService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,13 +24,15 @@ public class TaskController {
     @GetMapping
     public List<TaskDto> listTask(@PathVariable("task_list_id") Long taskListId){
 
-        System.out.println(taskService.listTask(taskListId)
-                .stream()
-                .map(taskMapper::toDto)
-                .toList());
         return taskService.listTask(taskListId)
                 .stream()
                 .map(taskMapper::toDto)
                 .toList();
+    }
+
+    @PostMapping
+    public TaskDto createTask(@PathVariable("task_list_id") Long taskListId, @RequestBody TaskDto taskDto){
+        Task createdTask = taskService.createTask(taskListId, taskMapper.fromDto(taskDto));
+        return taskMapper.toDto(createdTask);
     }
 }
