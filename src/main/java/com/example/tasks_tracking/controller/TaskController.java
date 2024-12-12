@@ -7,6 +7,7 @@ import com.example.tasks_tracking.services.TaskService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 // represent a rest controller
 @RestController
@@ -35,4 +36,14 @@ public class TaskController {
         Task createdTask = taskService.createTask(taskListId, taskMapper.fromDto(taskDto));
         return taskMapper.toDto(createdTask);
     }
+
+    @GetMapping(path = "/{task_id}")
+    public Optional<TaskDto> getTask(
+            @PathVariable("task_list_id") Long taskListId,
+            @PathVariable("task_id") Long taskId
+    ){
+        System.out.println(taskService.getTask(taskListId, taskId).map(taskMapper::toDto));
+        return taskService.getTask(taskListId, taskId).map(taskMapper::toDto);
+    }
+
 }
