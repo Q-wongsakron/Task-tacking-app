@@ -11,4 +11,6 @@ public interface TaskService {
     Task createTask(Long taskListId, Task task);
     // request the task might not exist
     Optional<Task> getTask(Long taskListId, Long taskId);
+
+    Task updateTask(Long taskListId, Long taskId , Task task );
 }

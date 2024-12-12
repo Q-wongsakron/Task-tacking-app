@@ -46,4 +46,16 @@ public class TaskController {
         return taskService.getTask(taskListId, taskId).map(taskMapper::toDto);
     }
 
+    @PutMapping(path = "/{task_id}")
+    public TaskDto updateTask(@PathVariable("task_list_id") Long taskListId,
+                              @PathVariable("task_id") Long taskId,
+                              @RequestBody TaskDto taskDto){
+        Task updateTask = taskService.updateTask(
+                taskListId,
+                taskId,
+                taskMapper.fromDto(taskDto));
+        return taskMapper.toDto(updateTask);
+    }
+
+
 }
