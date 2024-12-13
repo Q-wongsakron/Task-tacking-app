@@ -4,6 +4,7 @@ import com.example.tasks_tracking.entity.TaskList;
 import com.example.tasks_tracking.repositories.TaskListRepository;
 import com.example.tasks_tracking.services.TaskListService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,6 +52,8 @@ public class TaskListServiceImpl implements TaskListService {
         return taskListRepository.findById(taskListId);
     }
 
+    // for prevent error when update and it call jpa more than 1
+    @Transactional
     @Override
     public TaskList updateTaskList(Long taskListId, TaskList taskList) {
         if(null == taskList.getId()) {

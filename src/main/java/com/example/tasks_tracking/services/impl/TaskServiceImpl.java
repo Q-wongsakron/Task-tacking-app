@@ -8,6 +8,7 @@ import com.example.tasks_tracking.repositories.TaskListRepository;
 import com.example.tasks_tracking.repositories.TaskRepository;
 import com.example.tasks_tracking.services.TaskService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,6 +33,7 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findByTaskListId(taskListId);
     }
 
+    @Transactional
     @Override
     public Task createTask(Long taskListId, Task task) {
        if (null != task.getId()){
@@ -72,6 +74,7 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findByTaskListIdAndId(taskListId, taskId);
     }
 
+    @Transactional
     @Override
     public Task updateTask(Long taskListId, Long taskId, Task task) {
         System.out.println(taskListId.getClass());
@@ -100,5 +103,13 @@ public class TaskServiceImpl implements TaskService {
         existingTask.setUpdated(LocalDateTime.now());
 
         return taskRepository.save(existingTask);
+    }
+
+    // have @Transactional because it custom repository
+    @Transactional
+    @Override
+    public void deleteTask(Long taskListId, Long taskId) {
+
+        taskRepository.deleteByTaskListIdAndId(taskListId, taskId);
     }
 }
